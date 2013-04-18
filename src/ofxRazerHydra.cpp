@@ -69,8 +69,7 @@ void ofxRazerHydra::update()
         sixenseGetAllNewestData( &acd );
         sixenseUtils::getTheControllerManager()->update( &acd );
         
-        if(currStep == sixenseUtils::IControllerManager::SETUP_COMPLETE
-           || currStep == sixenseUtils::IControllerManager::P1C2_IDLE) {
+        if(isReady()) {
             
             updateNodePositions(&acd, base);
             
@@ -111,18 +110,27 @@ void ofxRazerHydra::drawDebug()
         // For each possible controller
         for( cont=0; cont<sixenseGetMaxControllers(); cont++ ) {
     
-            ofSetColor(cont==0 ? ofColor::red : ofColor::green);
-            
-            nodes[cont].transformGL();
-            ofDrawSphere(0, 0, 10);
-            ofDrawBox(ofPoint(0, 0, -50), 5, 5, 100);
-            nodes[cont].restoreTransformGL();
+            // See if it's enabled
+            if( sixenseIsControllerEnabled( cont ) ) {
+                
+                ofSetColor(cont==0 ? ofColor::red : ofColor::green);
+                
+                nodes[cont].transformGL();
+                ofDrawSphere(0, 0, 20);
+                ofDrawBox(ofPoint(0, 0, -50), 10, 10, 100);
+                nodes[cont].restoreTransformGL();
+            }
         }
     }
 }
 
 //---------
 
+bool ofxRazerHydra::isReady()
+{
+    return currStep == sixenseUtils::IControllerManager::SETUP_COMPLETE
+        || currStep == sixenseUtils::IControllerManager::P1C2_IDLE;
+}
 
 void ofxRazerHydra::setFilter(bool on)
 {

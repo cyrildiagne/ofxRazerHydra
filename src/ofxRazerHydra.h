@@ -51,6 +51,12 @@ public:
     
     void drawDebug();
     
+    bool isReady();
+    
+    string getSetupString() { return sixenseUtils::getTheControllerManager()->getStepString(); }
+    
+    inline int getCurrStep() { return currStep; }
+    
     inline const sixenseControllerData& getControllerData(int controllerId, int base=0) {
         return datas[base].controllers[controllerId];
     }
