@@ -27,6 +27,10 @@ void ofxRazerHydra::setup()
     // Init sixense
 	sixenseInit();
     
+    bt_ids = variadic (SIXENSE_BUTTON_BUMPER)(SIXENSE_BUTTON_JOYSTICK)
+    (SIXENSE_BUTTON_1)(SIXENSE_BUTTON_1)(SIXENSE_BUTTON_2)
+    (SIXENSE_BUTTON_3)(SIXENSE_BUTTON_4)(SIXENSE_BUTTON_START);
+    
     for(int base=0; base<sixenseGetMaxBases(); base++ ) {
 
         sixenseSetActiveBase(base);
@@ -181,10 +185,6 @@ void ofxRazerHydra::check_for_button_presses( sixenseAllControllerData *acd, int
     ofxRazerHydraTriggerEventArgs trArgs;
     
     sixenseSetActiveBase(base);
-    
-    variadic bt_ids = variadic (SIXENSE_BUTTON_BUMPER)(SIXENSE_BUTTON_JOYSTICK)
-        (SIXENSE_BUTTON_1)(SIXENSE_BUTTON_1)(SIXENSE_BUTTON_2)
-        (SIXENSE_BUTTON_3)(SIXENSE_BUTTON_4)(SIXENSE_BUTTON_START);
     
     int contId;
     

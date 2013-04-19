@@ -68,8 +68,9 @@ private:
     
     vector<ofNode> nodes;
     vector<sixenseUtils::ButtonStates> btStates;
-    
+    vector<int> bt_ids;
     vector<sixenseAllControllerData> datas;
+    
     
     sixenseUtils::IControllerManager::setup_step currStep;
     
